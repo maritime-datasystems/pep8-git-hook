@@ -19,7 +19,7 @@ overrides = ["--max-line-length=120"]
 def system(*args, **kwargs):
     kwargs.setdefault('stdout', subprocess.PIPE)
     proc = subprocess.run(args, **kwargs)
-    out = proc.stdout()
+    out = proc.stdout
     return out
 
 
