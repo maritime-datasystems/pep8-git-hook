@@ -13,7 +13,12 @@ Installation:
 
 The hook can be overridden: ```$ git commit --no-verify```
 
-Currently, the following PEP8 codes are checked for:
+Currently, the following PEP8 codes are ignored:
+
+**E701** multiple statements on one line (colon)
+
+
+The following PEP8 codes were enabled previously:
 
 E111 indentation is not a multiple of four   
 E125 continuation line does not distinguish itself from next logical line   
@@ -35,4 +40,4 @@ If you want to select only specific codes to scan for, use the
 ```select_codes``` list.
 Additional arguments to the pycodestyle program (e.g., ```--max-line-length=120```) can be added to the ```overrides``` list.
 
-This code was forked from [https://gist.github.com/810399](https://gist.github.com/810399).
+This code was forked from [https://github.com/cbrueffer/pep8-git-hook](https://github.com/cbrueffer/pep8-git-hook).
