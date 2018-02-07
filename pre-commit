@@ -2,7 +2,6 @@
 """
 Forked from https://gist.github.com/810399
 """
-from __future__ import with_statement, print_function
 import os
 import re
 import shutil
@@ -12,21 +11,20 @@ import tempfile
 
 # don't fill in both of these
 select_codes = []
-ignore_codes = ["E121", "E122", "E123", "E124", "E125", "E126", "E127", "E128",
-                "E129", "E131", "E501"]
+ignore_codes = ["701"]
 # Add things like "--max-line-length=120" below
-overrides = []
+overrides = ["--max-line-length=120"]
 
 
 def system(*args, **kwargs):
     kwargs.setdefault('stdout', subprocess.PIPE)
-    proc = subprocess.Popen(args, **kwargs)
-    out, err = proc.communicate()
+    proc = subprocess.run(args, **kwargs)
+    out = proc.stdout()
     return out
 
 
 def main():
-    modified = re.compile('^[AM]+\s+(?P<name>.*\.py$)', re.MULTILINE)
+    modified = re.compile('^\s*[AM]+\s+(?P<name>.*\.py$)', re.MULTILINE)
     files = system('git', 'status', '--porcelain').decode("utf-8")
     files = modified.findall(files)
 
@@ -53,7 +51,7 @@ def main():
     output = system(*args, cwd=tempdir)
     shutil.rmtree(tempdir)
     if output:
-        print(u'PEP8 style violations have been detected.  Please fix them\n'
+        print('PEP8 style violations have been detected.  Please fix them\n'
               'or force the commit with "git commit --no-verify".\n')
         print(output.decode("utf-8"),)
         sys.exit(1)
